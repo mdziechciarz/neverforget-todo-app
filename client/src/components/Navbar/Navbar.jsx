@@ -6,9 +6,9 @@ import { FaBars, FaTimes } from 'react-icons/fa'
 import style from './Navbar.module.css';
 
 const Navbar = () => {
-  const [isMobileOpened, setIsMobileOpened] = useState(true);
+  const [isMobileOpened, setIsMobileOpened] = useState(false);
   return (
-    <nav>
+    <nav className={style.navbar}>
       <div className={style.wrapper}>
         <div className={style.logo}>
           <Link to="/">

@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 730px;
+  background-image: url('../../../assets/2843425.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.quote {
+  padding: 0 10%;
+  font-size: 36px;
+  font-style: italic;
+  color: white;
+  font-weight: normal;
+  text-align: center;
+  font-weight: bold;
+}
+.author {
+  display: block;
+  font-size: 30px;
+  font-weight: 300;
+}

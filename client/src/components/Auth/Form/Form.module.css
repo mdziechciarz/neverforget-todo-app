@@ -99,7 +99,6 @@
 .submitBtn:hover {
   background-position: 0 100%;
   cursor: pointer;
-  /* color: black; */
 }
 .switchViewBtn {
   width: 100%;

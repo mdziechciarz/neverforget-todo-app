@@ -14,12 +14,7 @@ const Header = () => {
         <div className={style.heading}>
           <h1>Get your life<br /><span>organized</span></h1>
           <p>“The man who moves a mountain begins by carrying away small stones.” - Confucius</p>
-          <Link className={style.primaryCTA} to={{
-            pathname: "/auth",
-            state: {
-              loginView: false
-            }
-          }}>Get started</Link>
+          <Link className={style.primaryCTA} to="signup">Get started</Link>
         </div>
 
       </div>

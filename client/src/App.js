@@ -23,7 +23,7 @@ const App = () => {
             </>
           )}
         </Route>
-        <Route exact path={["/login", "/register"]}>
+        <Route exact path={["/login", "/signup"]}>
           <Auth />
         </Route>
       </Switch>

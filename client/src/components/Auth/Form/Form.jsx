@@ -1,25 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
+import Input from './Input/Input';
+import PasswordInput from './Input/PasswordInput';
+
 import userCircle from '../../../assets/userCircle.png';
 
 import style from './Form.module.css';
 
+const usernameRequirements = ['At least 6 characters long', 'Only alphabetical characters'];
+const passwordRequirements = ['At least 8 characters long', 'At least 1 uppercase letter', 'At least 1 digit', 'At least 1 special symbol'];
+
 const Form = () => {
   const location = useLocation();
   const [isLoginView, setIsLoginView] = useState(location.pathname === "/login");
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const isTabletOrBigger = useMediaQuery({ minWidth: 800 });
-
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [errorMessages, setErrorMessages] = useState({
+    username: '',
+    email: '',
+    password: ''
+  });
+
+  useEffect(() => {
+    setIsLoginView(location.pathname === "/login");
+  }, [location]);
 
   const handleSwitchView = e => {
     e.preventDefault();
     setIsLoginView(prev => !prev);
   }
-  const handleSwitchPassowordVisibility = () => setIsPasswordVisible(prev => !prev)
-  const handleInputChange = e => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+
+  const handleInputChange = e => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrorMessages(prev => ({ ...prev, [e.target.name]: '' }));
+  }
 
 
   return (
@@ -30,20 +46,9 @@ const Form = () => {
         </div>
         <p className={style.title}> {isLoginView ? "Log In" : "Create Account"} </p>
         <form className={style.form}>
-          {!isLoginView && (<div className={style.row}>
-            <input name="username" type="text" placeholder="Username" value={formData.username} onChange={handleInputChange} />
-          </div>)}
-          <div className={style.row}>
-            <input name="email" type="text" placeholder="E-mail" value={formData.email} onChange={handleInputChange} />
-          </div>
-          <div className={style.row}>
-            <div className={style.passwordRow}>
-              <input name="password" type={isPasswordVisible ? "text" : "password"} placeholder="Password" value={formData.password} onChange={handleInputChange} />
-              {
-                !isLoginView && formData.password && <i className={style.eyeIcon} onClick={handleSwitchPassowordVisibility}>{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}</i>
-              }
-            </div>
-          </div>
+          {!isLoginView && <Input name="username" placeholder="Username" error={errorMessages.username} value={formData.username} handleOnChange={handleInputChange} requirements={usernameRequirements} />}
+          <Input name="email" placeholder="E-mail" error={errorMessages.email} value={formData.email} handleOnChange={handleInputChange} />
+          <PasswordInput name="password" placeholder="Password" error={errorMessages.password} value={formData.password} handleOnChange={handleInputChange} isLoginView={isLoginView} requirements={passwordRequirements} />
           <div className={style.buttons}>
             <button className={style.submitBtn}>{isLoginView ? "Log In" : "Sign Up"}</button>
             <button className={style.switchViewBtn} onClick={handleSwitchView}>

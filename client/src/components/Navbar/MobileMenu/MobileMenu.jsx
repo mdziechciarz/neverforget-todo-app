@@ -9,16 +9,10 @@ const MobileMenu = ({ isOpen, setIsOpen }) => {
       <div className={style.mobileCloseIcon} onClick={() => setIsOpen(false)}><FaTimes /></div>
       <ul>
         <li>
-          <Link to={{
-            pathname: "/auth",
-            state: { loginView: false }
-          }}>Log In</Link>
+          <Link to="/login">Log In</Link>
         </li>
         <li>
-          <Link to={{
-            pathname: "/auth",
-            state: { loginView: false }
-          }}>Sign Up</Link>
+          <Link to="/signup">Sign Up</Link>
         </li>
       </ul>
     </div>

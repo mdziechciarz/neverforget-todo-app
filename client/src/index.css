@@ -16,3 +16,8 @@ body {
   min-height: 100vh;
   background-color: #F9F9F9;
 }
+
+button {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}

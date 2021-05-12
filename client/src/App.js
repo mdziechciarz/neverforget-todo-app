@@ -6,6 +6,7 @@ import InfoSection from './components/InfoSection/InfoSection';
 import Navbar from './components/Navbar/Navbar';
 import Main from './components/Main/Main';
 
+import './scss/style.scss';
 
 const App = () => {
   const [isUserLogged, setIsUserLogged] = useState(true);

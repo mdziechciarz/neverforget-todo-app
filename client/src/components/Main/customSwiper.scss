@@ -1,0 +1,20 @@
+@import '../../scss//variables';
+
+.swiper-container {
+  height: calc(100vh  - 105px);
+  padding: 5px 5px 30px 5px;
+
+  @media screen and (min-width: 768px) {
+    height: calc(100vh  - 170px);
+  }
+
+  .swiper-pagination-bullet {
+    width: 32px;
+    height: 12px;
+    margin: 0 10px !important;
+    border-radius: 9px;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: $primary;
+  }
+}

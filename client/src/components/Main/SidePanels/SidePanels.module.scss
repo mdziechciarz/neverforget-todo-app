@@ -1,0 +1,12 @@
+.container {
+  height: calc(40% - 13px);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (min-width: 1200px) {
+    height: 100%;
+    width: calc(40% - 13px);
+    flex-direction: column;
+  }
+}

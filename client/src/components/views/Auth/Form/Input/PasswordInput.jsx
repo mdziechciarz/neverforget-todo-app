@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { BiInfoCircle } from 'react-icons/bi';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 

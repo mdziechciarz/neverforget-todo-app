@@ -1,4 +1,3 @@
-import React from 'react'
 import { BiInfoCircle } from 'react-icons/bi';
 
 import style from './Input.module.css';

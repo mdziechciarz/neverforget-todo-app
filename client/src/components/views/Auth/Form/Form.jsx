@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
 import Input from './Input/Input';
 import PasswordInput from './Input/PasswordInput';
 
-import userCircle from '../../../assets/userCircle.png';
+import userCircle from '../../../../assets/user_circle.png';
 
 import style from './Form.module.css';
 

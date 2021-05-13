@@ -1,6 +1,5 @@
-import React from 'react'
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
 import style from './MobileMenu.module.css';
 
 const MobileMenu = ({ isOpen, setIsOpen }) => {

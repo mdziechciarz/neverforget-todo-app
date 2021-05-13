@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-
 import { FaCheck } from 'react-icons/fa';
 
 import style from './PrimaryIcon.module.css';

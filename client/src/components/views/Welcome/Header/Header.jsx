@@ -1,8 +1,6 @@
-import React from 'react';
-
 import { Link } from 'react-router-dom';
 
-import heroIllustration from '../../assets/hero.png';
+import heroIllustration from '../../../../assets/hero.png'
 
 import style from './Header.module.css';
 

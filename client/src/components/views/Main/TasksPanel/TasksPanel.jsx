@@ -1,16 +1,9 @@
-import React from 'react'
-// import { useMediaQuery } from 'react-responsive';
-
 import Category from './Category/Category';
 import Task from './Task/Task';
 
 import style from './TasksPanel.module.scss';
 
 const TasksPanel = () => {
-  // const isTabletOrDesktop = useMediaQuery({
-  //   minWidth: 700
-  // });
-
   return (
     <div className={style.container}>
       <div className={style.categories}>

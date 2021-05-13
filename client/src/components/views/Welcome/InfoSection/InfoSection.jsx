@@ -1,11 +1,9 @@
-import React from 'react'
-
-import customCategories from '../../assets/illustrations/custom_categories.png';
-import dataProtection from '../../assets/illustrations/data_protection.png';
-import notifications from '../../assets/illustrations/notifications.png';
-import personalStatistics from '../../assets/illustrations/personal_statistics.png';
-import realTimeSync from '../../assets/illustrations/real_time_sync.png';
-import taskPriorities from '../../assets/illustrations/task_priorities.png';
+import customCategories from '../../../../assets/illustrations/custom_categories.png'
+import dataProtection from '../../../../assets/illustrations/data_protection.png';
+import notifications from '../../../../assets/illustrations/notifications.png';
+import personalStatistics from '../../../../assets/illustrations/personal_statistics.png';
+import realTimeSync from '../../../../assets/illustrations/real_time_sync.png';
+import taskPriorities from '../../../../assets/illustrations/task_priorities.png';
 
 import style from './InfoSection.module.css';
 

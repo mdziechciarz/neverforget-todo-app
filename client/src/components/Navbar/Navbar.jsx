@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FaBars } from 'react-icons/fa'
 
 import MobileMenu from './MobileMenu/MobileMenu';
 

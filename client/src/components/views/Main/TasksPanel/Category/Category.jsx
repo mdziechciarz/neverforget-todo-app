@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 
 import style from './Category.module.css';

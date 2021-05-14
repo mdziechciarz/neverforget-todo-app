@@ -1,0 +1,226 @@
+@import '../../../../../scss/variables';
+
+.modalBackground {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  background-color: rgba(0,0,0,0.15);
+}
+
+.modalContainer {
+  max-width: 1080px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  padding: 40px 30px;
+  border-radius: 25px;
+  background-color: #fff;
+
+  @media screen and (min-width: 900px) {
+    padding: 60px 70px;
+  }
+  @media screen and (min-width: 1200px) {
+    padding: 60px 80px;
+  }
+}
+
+.modalHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: $primary;
+  font-weight: bold;
+
+  .modalCloseIcon {
+    font-size: 1.5em;
+    color: $gray;
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      color: $grayDark;
+    }
+  }
+
+  @media screen and (min-width: 400px) {
+    font-size: 20px;
+  }
+  @media screen and (min-width: 900px) {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+  @media screen and (min-width: 1200px) {
+    font-size: 40px;
+    margin-bottom: 40px;
+
+    .modalCloseIcon {
+      font-size: 40px;
+    }
+  }
+}
+
+.modalContent {
+  padding: 0 5px;
+
+  input, textarea {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 0 20px;
+    border: 1px solid #eeeeee;
+    border-radius: 20px;
+    color: $primary;
+    outline: none;
+    font-size: 14px;
+    font-weight: normal;
+
+    &::placeholder {
+      font-weight: 300;
+      color: $gray;
+    }
+
+    &:focus {
+      border-color: $gray;
+    }
+  }
+
+  textarea {
+    height: 85px;
+    padding-top: 12px;
+    font-family: 'Fira Sans', sans-serif;
+    resize: none;
+  }
+
+  @media screen and (min-width: 400px) {
+    input, textarea {
+      height: 45px;
+      font-size: 16px;
+    }
+    textarea {
+      height: 90px;
+    }
+  }
+  @media screen and (min-width: 900px) {
+    padding: 0 40px;
+
+    input, textarea {
+      height: 53px;
+      font-size: 24px;
+      margin-bottom: 18px;
+      padding: 0 35px;
+
+      &.title {
+        width: 60%;
+      }
+      &.category {
+        width: 38%;
+      }
+    }
+    textarea {
+      height: 125px;
+      padding-top: 12px;
+    }
+  } 
+}
+
+.inputs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.customization {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  @media screen and (min-width: 900px) {
+    margin-top: 20px;
+  }
+}
+
+.customizationBtn {
+  width: 49%;
+  height: 28px;
+  margin-bottom: 6px;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  color: $grayLight;
+  transition: 0.4s ease-in- out;
+  background-size: 300% 100%;
+
+  &:hover {
+    background-position: 100% 0;
+  }
+
+  i {
+    margin-right: 5px;
+  }
+
+  @media screen and (min-width: 400px) {
+    font-size: 14px;
+  }
+  @media screen and (min-width: 900px) {
+    height: 45px;
+    font-size: 20px;
+    margin-bottom: 15px;
+  } 
+}
+
+.confirmBtn {
+  width: 100%;
+  height: 32px;
+  margin-top: 20px;
+  border-radius: 20px;
+  border: none;
+  background-color: $primary;
+  color: $grayLight;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: $primaryDark;
+  }
+
+  i {
+    margin-right: 5px;
+  }
+
+  @media screen and (min-width: 400px) {
+    height: 45px;
+    font-size: 16px;
+  }
+  @media screen and (min-width: 900px) {
+    width: 40%;
+    margin-left: auto;
+    height: 53px;
+    font-size: 20px;
+    margin-top: 40px;
+
+    i {
+      margin-right: 10px;
+    }
+  } 
+}
+
+.deadline {
+  background-image: linear-gradient(90deg, #C7DDFC, #91B8ED, #91B8ED, #C7DDFC );
+  // background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+}
+.priority {
+  background-image: linear-gradient(90deg, #FFB9BD, #FF999F, #FF999F, #FFB9BD);
+}
+.timed {
+  background-image: linear-gradient(90deg, #ffef86, #ffe646, #ffe646, #ffef86);
+}
+.habit {
+  background-image: linear-gradient(90deg, #C2FFB0, #8AF76A, #8AF76A, #C2FFB0);
+}

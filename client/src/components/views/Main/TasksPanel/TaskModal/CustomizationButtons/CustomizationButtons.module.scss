@@ -1,0 +1,63 @@
+@import '../../../../../../scss/variables';
+
+.customizationBtn {
+  width: 49%;
+  height: 28px;
+  margin-bottom: 6px;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  color: $grayLight;
+  transition: 0.4s ease-in-out;
+  background-size: 300% 100%;
+
+  &:hover {
+    background-position: 100% 0;
+  }
+
+  i {
+    margin-right: 5px;
+  }
+
+  @media screen and (min-width: 400px) {
+    font-size: 14px;
+  }
+  @media screen and (min-width: 900px) {
+    height: 45px;
+    font-size: 20px;
+    margin-bottom: 15px;
+
+    i {
+      margin-right: 10px;
+    }
+  } 
+}
+
+.deadline {
+  background-image: linear-gradient(90deg, #C7DDFC, #91B8ED, #91B8ED, #C7DDFC );
+  width: 100%;
+  margin-bottom: 0;
+  &.selected {
+    background: #fff;
+    border: 2px solid #91B8ED;
+    color: #91B8ED;
+    position: relative;
+
+    &:hover {
+      box-shadow: 0 0 5px rgba(33,33,33,.2); 
+    }
+  }
+}
+
+
+
+
+.priority {
+  background-image: linear-gradient(90deg, #FFB9BD, #FF999F, #FF999F, #FFB9BD);
+}
+.timed {
+  background-image: linear-gradient(90deg, #ffef86, #ffe646, #ffe646, #ffef86);
+}
+.habit {
+  background-image: linear-gradient(90deg, #C2FFB0, #8AF76A, #8AF76A, #C2FFB0);
+}

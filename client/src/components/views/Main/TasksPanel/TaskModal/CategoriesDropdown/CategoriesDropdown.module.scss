@@ -1,0 +1,166 @@
+@import '../../../../../../scss//variables';
+
+.wrapper {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  position: relative;
+
+  @media screen and (min-width: 400px) {
+    height: 45px;
+  }
+  @media screen and (min-width: 900px) {
+    width: 38%;
+    height: 53px;
+    margin-bottom: 18px;
+  }
+}
+
+.container {
+  // height: 53px;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;  
+  width: 100%;
+  border: 1px solid $gray;
+  border-radius: 20px;
+  background-color: #fff;
+  transition: height 0.3s;
+
+  &.open {
+    border-color: $grayDark;
+  //   height: 220px;
+  //   overflow-y: scroll;
+
+  //   &::-webkit-scrollbar {
+  //     display: none;
+  //   }
+  }
+}
+
+.head {
+  width: 100%;
+  height: 40px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: $gray;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: 0.3s;
+
+  &:hover {
+    color: $grayDark;
+  }
+
+  .title.selected {
+    color: $primary;
+  }
+
+  .arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 400px) {
+    height: 45px;
+    font-size: 16px;
+  }
+  @media screen and (min-width: 900px) {
+    padding: 0 35px;  
+    height: 53px;
+    font-size: 22px;
+  }
+}
+
+.content {
+  // padding-bottom: 10px;
+  // animation: show 0.5s ease-out;
+
+  .elementsList {
+    max-height: 150px;
+    overflow: auto;
+    width: 100%;
+    list-style-type: none;
+
+    @media screen and (min-width: 900px) {
+      max-height: 200px;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        border-right: 4px solid transparent;
+      }
+      &::-webkit-scrollbar-track {
+        background: rgba(95, 65, 186, 0.2); 
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $primary; 
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: $primaryDark; 
+      }
+    }
+    
+  }
+  
+  .element {
+    padding: 10px 40px;
+    font-size: 14px;
+    color: $gray;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+      color: $grayDark;
+    }
+
+    @media screen and (min-width: 400px) {
+      font-size: 16px;
+    }
+    @media screen and (min-width: 900px) {
+      padding: 10px 55px;
+    }
+  }
+
+  .addCategoryBtn {
+    width: 100%;
+    color: $primary;
+    padding: 20px 40px;
+    border: none;
+    background: none;
+    justify-content: flex-start;
+
+    &:hover {
+      padding-left: 60px;
+      color: $primaryDark;
+    }
+
+    i {
+      margin-right: 5px;
+    }
+
+    @media screen and (min-width: 400px) {
+      font-size: 16px;
+    }
+    @media screen and (min-width: 900px) {
+      padding: 20px 55px;
+    }
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

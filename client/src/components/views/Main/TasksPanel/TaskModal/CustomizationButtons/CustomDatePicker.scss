@@ -1,0 +1,21 @@
+.XDXDXD {
+  width: 49%;
+  margin-bottom: 6px;
+  // padding-bottom: 10px;
+  .react-datepicker__close-icon {
+    right: 10px;
+    margin-bottom: 15px;
+
+    &::after {
+      background-color: #91B8ED;
+      transition: background-color 0.3s;
+    }
+    &:hover::after {
+      background-color: #6e9ee2;
+    }
+  }
+  
+  @media screen and (min-width: 900px) {
+    margin-bottom: 15px;
+  }
+}

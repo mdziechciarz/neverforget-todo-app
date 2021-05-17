@@ -34,11 +34,14 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 18px;
   color: $primary;
   font-weight: bold;
 
   .modalCloseIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 1.5em;
     color: $gray;
     transition: 0.3s;
@@ -74,20 +77,18 @@
     height: 40px;
     margin-bottom: 10px;
     padding: 0 20px;
-    border: 1px solid #eeeeee;
+    border: 1px solid $gray;
     border-radius: 20px;
     color: $primary;
     outline: none;
     font-size: 14px;
-    font-weight: normal;
 
     &::placeholder {
-      font-weight: 300;
       color: $gray;
     }
 
     &:focus {
-      border-color: $gray;
+      border-color: $grayDark;
     }
   }
 
@@ -112,7 +113,7 @@
 
     input, textarea {
       height: 53px;
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 18px;
       padding: 0 35px;
 
@@ -213,7 +214,7 @@
 
 .deadline {
   background-image: linear-gradient(90deg, #C7DDFC, #91B8ED, #91B8ED, #C7DDFC );
-  // background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+  width: 100%;
 }
 .priority {
   background-image: linear-gradient(90deg, #FFB9BD, #FF999F, #FF999F, #FFB9BD);

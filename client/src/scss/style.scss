@@ -6,7 +6,6 @@
 
 html {
   font-family: 'Fira Sans', sans-serif;
-  font-size: 10px;
 }
 
 body {  
@@ -26,10 +25,13 @@ button {
   cursor: pointer;
   transition: 0.3s;
 
-
   i {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 }
+
+// #modal {
+//   position: relative;
+// }

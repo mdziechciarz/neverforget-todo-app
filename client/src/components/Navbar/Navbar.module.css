@@ -10,7 +10,7 @@
   justify-content: space-between;
 }
 .logo {
-  font-size: 4rem;
+  font-size: 40px;
   font-family: Pacifico;
   /* flex-grow: 1; */
 }
@@ -32,7 +32,7 @@
   margin-left: 40px;
 }
 .menu>li>a {
-  font-size: 2rem;
+  font-size: 20px;
   text-decoration: none;
   color: #000;
   position: relative;
@@ -73,14 +73,14 @@
     padding: 30px 5%;
   }
   .logo {
-    font-size: 2.5rem;
+    font-size: 25px;
   }
   .menu {
     display: none;
   }
   .mobileOpenIcon {
     display: block;
-    font-size: 2rem;
+    font-size: 20px;
   }
 
   .mobileMenu.active {

@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { FaPlus } from 'react-icons/fa'
-import Modal from '../../../../../Modal/Modal';
 import style from './CategoriesDropdown.module.scss';
-
-import taskData from '../../../../../../data/tasksData';
 
 const CategoriesDropdown = ({ title, options, selectedOption, setOption }) => {
   const [isOpen, setIsOpen] = useState(false);

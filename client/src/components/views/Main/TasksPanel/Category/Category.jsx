@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
+import { IoIosArrowForward } from 'react-icons/io';
 
 import style from './Category.module.css';
 
 const Category = ({ children, name, openedByDefault }) => {
-  const [isCollapsed, setIsCollapsed] = useState(!openedByDefault);
+  const [isOpen, setIsCollapsed] = useState(!openedByDefault);
 
   const toggleColapse = () => {
     setIsCollapsed(prev => !prev);
@@ -12,13 +12,14 @@ const Category = ({ children, name, openedByDefault }) => {
 
   return (
     <div className={style.container}>
-      <div className={style.head}>
+      <div className={style.head} onClick={toggleColapse}>
         <p className={style.name}>{name}</p>
-        <div className={style.collapseIcon} onClick={toggleColapse}>
-          {isCollapsed ? <IoIosArrowForward /> : <IoIosArrowDown />}
+        <div className={`${style.collapseIcon} ${isOpen ? style.open : ''}`} >
+          {/* {isCollapsed ? <IoIosArrowForward /> : <IoIosArrowDown />} */}
+          <IoIosArrowForward />
         </div>
       </div>
-      {!isCollapsed && <div className={style.content}>{children}</div>}
+      {isOpen && <div className={style.content}>{children}</div>}
     </div>
   )
 }

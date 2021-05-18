@@ -10,21 +10,21 @@ import HabitInput from './CustomizationButtons/HabitInput';
 
 import style from './TaskModal.module.scss';
 
-import tasksData from '../../../../../data/tasksData';
+import tasksData from '../../../../../data/exampleData';
 
-const TaskModal = ({ setIsModalOpen }) => {
+const TaskModal = ({ editedTask, handleCloseModal, categories }) => {
   const backgroundRef = useRef();
 
   const handleBackgroundClick = (e) => {
     if (backgroundRef.current === e.target) {
-      setIsModalOpen(false);
+      handleCloseModal();
     }
   }
 
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.key === 'Escape') {
-        setIsModalOpen(false);
+        handleCloseModal();
       }
     }
     document.addEventListener('keydown', handleKeyPress);
@@ -34,7 +34,7 @@ const TaskModal = ({ setIsModalOpen }) => {
     }
   }, []);
 
-  const [taskData, setTaskData] = useState({
+  const [taskData, setTaskData] = useState(editedTask || {
     title: '',
     category: '',
     description: '',
@@ -59,18 +59,18 @@ const TaskModal = ({ setIsModalOpen }) => {
 
   return (
     <Modal>
-      <div className={style.modalBackground} onClick={handleBackgroundClick} ref={backgroundRef}>
+      <div className={style.modalBackground} ref={backgroundRef} onClick={handleBackgroundClick}>
         <div className={style.modalContainer}>
           <div className={style.modalHead}>
-            {'Create new task'}
-            <ModalCloseIcon setIsModalOpen={setIsModalOpen} />
+            {editedTask ? 'Edit task' : 'Create new task'}
+            <ModalCloseIcon handleCloseModal={handleCloseModal} />
           </div>
           <div className={style.modalContent}>
             <div className={style.inputs}>
 
               <input className={style.title} type="text" placeholder="Title" name="title" value={taskData.title} onChange={handleChange} />
 
-              <CategoriesDropdown title="Category" options={tasksData.categories} selectedOption={taskData.category} setOption={setCategory} />
+              <CategoriesDropdown title="Category" options={categories.map(category => category.name)} selectedOption={taskData.category} setOption={setCategory} />
               <textarea className={style.description} type="text" name="description" placeholder="Description" value={taskData.description} onChange={handleChange} />
             </div>
             <div className={style.customization}>
@@ -80,7 +80,7 @@ const TaskModal = ({ setIsModalOpen }) => {
               <HabitInput />
             </div>
           </div>
-          <button className={style.confirmBtn}><i><FaCheck /></i>Confirm</button>
+          <button className={style.confirmBtn}><i><FaCheck /></i>{editedTask ? 'Save' : 'Create'}</button>
         </div>
       </div>
     </Modal>
@@ -89,6 +89,6 @@ const TaskModal = ({ setIsModalOpen }) => {
 
 export default TaskModal;
 
-const ModalCloseIcon = ({ setIsModalOpen }) => (
-  <div className={style.modalCloseIcon} onClick={() => setIsModalOpen(false)}><MdClose /></div>
+const ModalCloseIcon = ({ handleCloseModal }) => (
+  <div className={style.modalCloseIcon} onClick={handleCloseModal}> <MdClose /></div >
 )

@@ -18,11 +18,19 @@
   justify-content: center;
   align-items: center;
   font-size: 26px;
+  width: 30px;
+  height: 30px;
   color: #A8A8A8;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  transition: transform .3s;
 }
+
+.open {
+  transform: rotate(90deg);
+}
+
 .content {
   padding: 15px 0 0;
 }

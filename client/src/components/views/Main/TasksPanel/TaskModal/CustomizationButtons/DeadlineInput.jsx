@@ -14,7 +14,7 @@ const DeadlineInput = ({ deadline, setTaskData }) => {
       selected={deadline}
       onChange={date => setTaskData(prev => ({ ...prev, deadline: date }))}
       // wrapperClassName={style.datePickerWrapper}
-      wrapperClassName="XDXDXD"
+      wrapperClassName="taskDeadlinePicker"
       customInput={deadline ? <SelectedCustomInput deadline={deadline} setTaskData={setTaskData} /> :
         <UnselectedCustomInput />}
     />

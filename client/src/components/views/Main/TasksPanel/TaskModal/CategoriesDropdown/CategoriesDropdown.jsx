@@ -3,7 +3,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { FaPlus } from 'react-icons/fa'
 import style from './CategoriesDropdown.module.scss';
 
-const CategoriesDropdown = ({ title, options, selectedOption, setOption }) => {
+const CategoriesDropdown = ({ title, options, selectedOption, selectOption }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
     setIsOpen(prev => !prev)
@@ -13,7 +13,7 @@ const CategoriesDropdown = ({ title, options, selectedOption, setOption }) => {
     <div className={style.wrapper}>
       <div className={`${style.container} ${isOpen && style.open}`}>
         <Head isOpen={isOpen} handleOpen={handleOpen} selectedOption={selectedOption} title={title} />
-        {isOpen && <Content options={options} setOption={setOption} setIsOpen={setIsOpen} />}
+        {isOpen && <Content options={options} setOption={selectOption} setIsOpen={setIsOpen} />}
       </div>
     </div>
   )

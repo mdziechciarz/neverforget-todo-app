@@ -7,7 +7,8 @@
   left: 0;
   right: 0;
   z-index: 10000;
-  background-color: rgba(0,0,0,0.15);
+  background-color: rgba(0,0,0,0);
+  animation: background 0.3s forwards;
 }
 
 .modalContainer {
@@ -15,11 +16,12 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0);
   width: 90%;
   padding: 40px 30px;
   border-radius: 25px;
   background-color: #fff;
+  animation: container 0.3s forwards;
 
   @media screen and (min-width: 900px) {
     padding: 60px 70px;
@@ -224,4 +226,21 @@
 }
 .habit {
   background-image: linear-gradient(90deg, #C2FFB0, #8AF76A, #8AF76A, #C2FFB0);
+}
+
+@keyframes background {
+  0% {
+    background-color: rgba(0,0,0,0);
+  }
+  100% {
+    background-color: rgba(0,0,0,0.15);
+  }
+}
+@keyframes container {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }

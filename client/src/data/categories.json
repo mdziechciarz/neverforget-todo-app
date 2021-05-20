@@ -1,0 +1,77 @@
+[
+  {
+    "Id": "60a4f545bc914c40eb7f9102",
+    "Id_user": "60a4f29b006317dc771f5442",
+    "name": "School"
+  },
+  {
+    "Id": "60a4f54574ceea60ba88ebe7",
+    "Id_user": "60a4f29b006317dc771f5442",
+    "name": "Housework"
+  },
+  {
+    "Id": "60a4f545d5cef20e8a4390c1",
+    "Id_user": "60a4f29b006317dc771f5442",
+    "name": "Workout"
+  },
+  {
+    "Id": "60a4f5456ecb0de7203e51e9",
+    "Id_user": "60a4f29b006317dc771f5442",
+    "name": "Work"
+  },
+  {
+    "Id": "60a4f5455875da9ba82b5ee4",
+    "Id_user": "60a4f29b006317dc771f5442",
+    "name": "Development"
+  },
+  {
+    "Id": "60a4f545a4ae26435e43f3b5",
+    "Id_user": "60a4f29b62db421813960db6",
+    "name": "School"
+  },
+  {
+    "Id": "60a4f545130da92d0a34cd12",
+    "Id_user": "60a4f29b62db421813960db6",
+    "name": "Work"
+  },
+  {
+    "Id": "60a4f5458a973f3769c39b96",
+    "Id_user": "60a4f29b62db421813960db6",
+    "name": "Development"
+  },
+  {
+    "Id": "60a4f5453224feedde9bba42",
+    "Id_user": "60a4f29b62db421813960db6",
+    "name": "Education"
+  },
+  {
+    "Id": "60a4f54598ee879fc79ba276",
+    "Id_user": "60a4f29b62db421813960db6",
+    "name": "Family"
+  },
+  {
+    "Id": "60a4f545832e1f06fd67c50e",
+    "Id_user": "60a4f29b7a009a0a73d8ba22",
+    "name": "Work"
+  },
+  {
+    "Id": "60a4f5450ab22a5ea5ba7baa",
+    "Id_user": "60a4f29b7a009a0a73d8ba22",
+    "name": "School"
+  },
+  {
+    "Id": "60a4f545dffb0cce7a0cba80",
+    "Id_user": "60a4f29b7a009a0a73d8ba22",
+    "name": "Training"
+  },
+  {
+    "Id": "60a4f5451ecb53764a81f5e1",
+    "Id_user": "60a4f29b7a009a0a73d8ba22",
+    "name": "Cleaning"
+  },
+  {
+    "Id": "60a4f5455c04b87a7f9caf87",
+    "Id_user": "60a4f29b7a009a0a73d8ba22",
+    "name": "Family"
+  }
+]

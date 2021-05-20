@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { TaskCategoriesContext } from '../TasksPanel';
 import { MdClose } from 'react-icons/md';
 import { FaCheck } from 'react-icons/fa';
 import Modal from '../../../../Modal/Modal';
@@ -10,17 +11,13 @@ import HabitInput from './CustomizationButtons/HabitInput';
 
 import style from './TaskModal.module.scss';
 
-import tasksData from '../../../../../data/exampleData';
-
-const TaskModal = ({ editedTask, handleCloseModal, categories }) => {
+const TaskModal = ({ editedTask, handleCloseModal }) => {
   const backgroundRef = useRef();
-
   const handleBackgroundClick = (e) => {
     if (backgroundRef.current === e.target) {
       handleCloseModal();
     }
   }
-
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.key === 'Escape') {
@@ -33,6 +30,9 @@ const TaskModal = ({ editedTask, handleCloseModal, categories }) => {
       document.removeEventListener('keydown', handleKeyPress);
     }
   }, []);
+
+  const taskCategories = useContext(TaskCategoriesContext);
+  const categories = taskCategories.map(category => category.name);
 
   const [taskData, setTaskData] = useState(editedTask || {
     title: '',
@@ -50,7 +50,7 @@ const TaskModal = ({ editedTask, handleCloseModal, categories }) => {
       [e.target.name]: e.target.value
     }))
   }
-  const setCategory = (category) => {
+  const selectCategory = (category) => {
     setTaskData(prev => ({
       ...prev,
       category
@@ -67,10 +67,8 @@ const TaskModal = ({ editedTask, handleCloseModal, categories }) => {
           </div>
           <div className={style.modalContent}>
             <div className={style.inputs}>
-
               <input className={style.title} type="text" placeholder="Title" name="title" value={taskData.title} onChange={handleChange} />
-
-              <CategoriesDropdown title="Category" options={categories.map(category => category.name)} selectedOption={taskData.category} setOption={setCategory} />
+              <CategoriesDropdown title="Category" options={categories} selectedOption={taskData.category} selectOption={selectCategory} />
               <textarea className={style.description} type="text" name="description" placeholder="Description" value={taskData.description} onChange={handleChange} />
             </div>
             <div className={style.customization}>

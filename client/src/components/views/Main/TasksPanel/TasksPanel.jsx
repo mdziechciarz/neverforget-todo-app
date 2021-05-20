@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import Category from './Category/Category';
 import Task from './Task/Task';
@@ -8,12 +8,14 @@ import style from './TasksPanel.module.scss';
 
 import exampleData from '../../../../data/exampleData';
 
+export const TaskCategoriesContext = createContext();
+
 const TasksPanel = () => {
-  const [categories, setCategories] = useState([]);
+  const [taskCategories, setTaskCategories] = useState([]);
 
   useEffect(() => {
     const { tasks: { categories: taskCategories } } = exampleData;
-    setCategories(Object.values(taskCategories));
+    setTaskCategories(Object.values(taskCategories));
   }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,10 +34,10 @@ const TasksPanel = () => {
   }
 
   return (
-    <>
+    <TaskCategoriesContext.Provider value={taskCategories}>
       <div className={style.container}>
         <div className={style.categories}>
-          {categories.map(({ name, openedByDefault, tasks }, key) => (
+          {taskCategories.map(({ name, openedByDefault, tasks }, key) => (
             <Category key={key} name={name} openedByDefault={openedByDefault}>
               {
                 tasks.map((task, key) => (
@@ -56,11 +58,11 @@ const TasksPanel = () => {
       {isModalOpen && <TaskModal
         editedTask={editedTask}
         handleCloseModal={handleCloseModal}
-        categories={categories}
+        categories={taskCategories}
         setIsModalOpen={setIsModalOpen}
         setEditedTask={setEditedTask}
       />}
-    </>
+    </TaskCategoriesContext.Provider>
   )
 }
 

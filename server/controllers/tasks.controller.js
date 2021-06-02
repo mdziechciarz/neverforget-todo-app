@@ -1,106 +1,103 @@
 import Task from '../models/task.model.js';
 import Category from '../models/category.model.js';
-import User from '../models/user.model.js';
+// import User from '../models/user.model.js';
+import { ForbiddenError, NotFoundError } from '../helpers/errors/ApiError.js';
 
-export const get = async (req, res) => {
-  if (!req.user_id) return res.status(401).send();
-
+export const get = async (req, res, next) => {
   try {
     const tasks = await Task.find({ user_id: req.user_id }, { '__v': 0 });
 
     return res.status(200).json({
-      success: true,
-      data: tasks
+      tasks
     })
-  } catch (error) {
-    return res.status(500).send();
+  } catch (err) {
+    next(err);
   }
 }
 
-export const create = async (req, res) => {
-  const { category_id, title, description, deadline, priority } = req.body;
-
-  // VALIDATION!!!
-  if (!category_id || !title) {
-    return res.status(400).send();
-  }
-  if (!req.user_id) {
-    return res.status(401).send();
-  }
-  // 
-
-  const taskData = { title, category_id, description };
-  if (deadline) taskData.deadline = deadline;
-  if (priority) taskData.priority = priority;
-
-  // 
-
+export const getOne = async (req, res, next) => {
   try {
-    const task = new Task({
-      ...taskData,
-      user_id: req.user_id
-    });
+    const { task_id } = req.params;
+
+    const task = await Task.findOne({ _id: task_id }, { '__v': 0 });
+    if (!task)
+      throw new NotFoundError('Task Not Found');
+    if (!task.user_id.equals(req.user_id))
+      throw new ForbiddenError();
+
+    return res.status(200).json({ task });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export const create = async (req, res, next) => {
+  try {
+    const { category_id, title, description, deadline, priority } = req.body;
+
+    const taskData = { user_id: req.user_id, category_id, title, description, deadline, priority };
+
+    const category = await Category.findById(category_id);
+    if (!category)
+      throw new NotFoundError('Category Not Found')
+    if (!category.user_id.equals(req.user_id))
+      throw new ForbiddenError();
+
+    const task = new Task(taskData);
     await task.save();
 
-    const category = await Category.findById(task.category_id);
-    category.tasks.push(task);
-    await category.save();
-
-    const user = await User.findById(req.user_id);
-    user.tasks.push(task);
-    await user.save();
+    const result = task.toObject();
+    delete result['__v'];
 
     return res.status(201).json({
-      task
+      task: result
     })
 
-  } catch (error) {
-    console.log(error);
-    res.status(500).send();
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+}
+
+export const update = async (req, res, next) => {
+  try {
+    const { task_id } = req.params;
+    const { category_id, title, description, deadline, priority } = req.body;
+    const updateData = { category_id, title, description, deadline, priority };
+
+    const task = await Task.findOne({ _id: task_id }, { '__v': 0 });
+    if (!task)
+      throw new NotFoundError('Task Not Found');
+    if (!task.user_id.equals(req.user_id))
+      throw new ForbiddenError();
+
+    for (const key in updateData)
+      task[key] = updateData[key];
+
+    await task.save();
+
+    return res.status(200).json({ task })
+  } catch (err) {
+    next(err);
   }
 
 }
 
-export const update = async (req, res) => {
-  if (!req.user_id) return res.status(401).send();
-
-  const { task_id } = req.params;
-  const { category_id, title, description, deadline, priority } = req.body;
-
-  // VALIDATION
-  if (![task_id, category_id, title, description, deadline, priority].every(el => el !== undefined)) {
-    return res.status(400).send();
-  }
-  // 
-
+export const remove = async (req, res, next) => {
   try {
-    const task = await Task.findOneAndUpdate({ _id: task_id }, { category_id, title, description, deadline, priority }, { new: true });
+    const { task_id } = req.params;
 
-    return res.status(200).json({
-      success: true,
-      data: task
-    })
-  } catch (error) {
-    return res.status(500).send();
-  }
+    const task = await Task.findOne({ _id: task_id });
+    if (!task)
+      throw new NotFoundError('Task Not Found');
+    if (!task.user_id.equals(req.user_id))
+      throw new ForbiddenError();
 
-}
+    await task.deleteOne()
 
-export const remove = async (req, res) => {
-  if (!req.user_id) return res.status(401).send();
-
-  const { task_id } = req.params;
-  // VALIDATION
-  if (!task_id) return res.status(400).send();
-  // 
-  try {
-    await Task.deleteOne({ _id: task_id });
-
-    return res.status(200).json({
-      success: true
-    });
-  } catch (error) {
-    return res.status(500).send();
+    return res.status(204).json({});
+  } catch (err) {
+    next(err);
   }
 }
 

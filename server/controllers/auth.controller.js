@@ -1,92 +1,49 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import User from '../models/user.model.js';
+import * as userService from '../services/userService.js';
+import { createToken } from '../helpers/accessToken.js';
 
-export const register = async (req, res) => {
-  const errors = {};
 
+export const register = async (req, res, next) => {
   try {
-    // VALIDATION!!!
-    const user = await User.findOne({ username: req.body.username });
+    const { username, email, password } = req.body;
 
-    if (user) {
-      errors.username = 'Username is already in use!'
-    }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send();
-  }
+    const user = await userService.register(username, email, password);
+    const token = createToken({ user_id: user.id });
 
-  try {
-    const user = await User.findOne({ email: req.body.email });
-    if (user) {
-      errors.email = 'Email is already in use!'
-    }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send();
-  }
-
-  if (errors.username || errors.email) {
-    return res.status(400).send({ errors })
-  }
-
-  const hashedPassword = await bcrypt.hash(req.body.password, 8);
-
-  const user = new User({ username: req.body.username, email: req.body.email, password: hashedPassword });
-
-  try {
-    const savedUser = await user.save();
-    const token = jwt.sign({ user_id: savedUser.id }, process.env.jwtSecret, { expiresIn: 24 * 60 * 60 });
-    return res.status(201).send({
+    return res.status(201).json({
       user: {
-        id: savedUser.id,
-        username: savedUser.username,
-        email: savedUser.email,
-      },
-      accessToken: token
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send();
-  }
-}
-
-
-export const login = async (req, res) => {
-  try {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      return res.status(404).send({
-        errors: {
-          email: 'User doent\'t exist'
-        }
-      });
-    }
-
-    const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
-    if (!isPasswordValid) {
-      return res.status(403).send({
-        errors: {
-          password: 'Invalid credentials'
-        }
-      });
-    }
-
-    const token = jwt.sign({ user_id: user.id }, process.env.jwtSecret, { expiresIn: 24 * 60 * 60 });
-
-    return res.status(200).send({
-      user: {
-        id: user.id,
+        id: user._id,
         username: user.username,
         email: user.email,
       },
       accessToken: token
-    });
+    })
 
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send();
+
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+}
+
+
+export const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await userService.login(email, password);
+    const token = createToken({ user_id: user.id });
+
+    return res.status(200).json({
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+      accessToken: token
+    })
+
+  } catch (err) {
+    next(err);
   }
 }
 

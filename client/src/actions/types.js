@@ -1,1 +1,2 @@
-export const GET_ALL_TASKS = 'GET_ALL_TASKS';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';

@@ -50,15 +50,16 @@
   margin-left: 5px;
 }
 .errorTooltip {
-  width: 180px;
-  padding: 10px 0;
+  width: 240px;
+  padding: 10px 30px;
   visibility: hidden;
   opacity: 0;
-  border-radius: 6px;
+  border-radius: 10px;
   text-align: center;
   transition: 0.2s;
   color: #fff;
   background-color: #333;
+  font-size: 11px;
   /* Position the tooltip */
   position: absolute;
   top: 100%;
@@ -67,7 +68,7 @@
   z-index: 1;
 }
 .errorTooltip>* {
-  padding: 2px 0;
+  padding: 4px 0;
 }
 .errorMessage:hover + .errorTooltip {
   opacity: 1;

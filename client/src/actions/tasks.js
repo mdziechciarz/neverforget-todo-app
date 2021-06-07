@@ -1,5 +1,3 @@
-import { GET_ALL_TASKS } from './types';
-
 export const getAllTasks = () => (dispatch) => {
   // get tasks from api
 

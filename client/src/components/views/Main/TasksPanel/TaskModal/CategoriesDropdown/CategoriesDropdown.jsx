@@ -21,14 +21,17 @@ const CategoriesDropdown = ({ title, options, selectedOption, selectOption }) =>
 
 export default CategoriesDropdown
 
-const Head = ({ isOpen, handleOpen, selectedOption, title }) => (
-  <div className={style.head} onClick={handleOpen}>
-    <span className={`${style.title} ${selectedOption && style.selected}`}>
-      {selectedOption || title}
-    </span>
-    <span className={style.arrow}>{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</span>
-  </div>
-)
+const Head = ({ isOpen, handleOpen, selectedOption, title }) => {
+  console.log(selectedOption);
+  return (
+    <div className={style.head} onClick={handleOpen}>
+      <span className={`${style.title} ${selectedOption && style.selected}`}>
+        {selectedOption?.name || title}
+      </span>
+      <span className={style.arrow}>{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</span>
+    </div>
+  )
+}
 
 const Content = ({ options, setOption, setIsOpen }) => {
   const handleSelect = (option) => {
@@ -39,8 +42,8 @@ const Content = ({ options, setOption, setIsOpen }) => {
   return (
     <div className={style.content}>
       <ul className={style.elementsList}>
-        {options.map((el, i) => (
-          <Element key={i} name={el} onClick={() => handleSelect(el)} />
+        {options.map((option, i) => (
+          <Element key={option._id} name={option.name} onClick={() => handleSelect(option)} />
         ))}
       </ul>
       <button className={style.addCategoryBtn}><i><FaPlus /></i>New category</button>

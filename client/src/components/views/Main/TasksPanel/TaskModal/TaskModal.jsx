@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TaskCategoriesContext } from '../TasksPanel';
 import { MdClose } from 'react-icons/md';
 import { FaCheck } from 'react-icons/fa';
@@ -12,6 +13,7 @@ import HabitInput from './CustomizationButtons/HabitInput';
 import style from './TaskModal.module.scss';
 
 const TaskModal = ({ editedTask, handleCloseModal }) => {
+  const dispatch = useDispatch();
   const backgroundRef = useRef();
   const handleBackgroundClick = (e) => {
     if (backgroundRef.current === e.target) {
@@ -31,17 +33,16 @@ const TaskModal = ({ editedTask, handleCloseModal }) => {
     }
   }, []);
 
-  const taskCategories = useContext(TaskCategoriesContext);
-  const categories = taskCategories.map(category => category.name);
+  // const taskCategories = useContext(TaskCategoriesContext);
+  const categories = useSelector(state => state.categories);
+  // const categories = taskCategories.map(category => category.name);
 
   const [taskData, setTaskData] = useState(editedTask || {
     title: '',
-    category: '',
+    category: null,
     description: '',
-    deadline: '',
-    priority: '',
-    timed: '',
-    habit: ''
+    deadline: null,
+    priority: 0,
   });
 
   const handleChange = e => {

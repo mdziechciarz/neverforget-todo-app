@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch } from 'react-redux';
 import { login, register } from '../../../../actions/user';
@@ -18,6 +18,7 @@ const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&
 
 const Form = () => {
   const location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [isLoginView, setIsLoginView] = useState(location.pathname === "/login");
@@ -33,7 +34,8 @@ const Form = () => {
   const handleSwitchView = e => {
     e.preventDefault();
     setErrorMessages({ username: '', email: '', password: '' })
-    setIsLoginView(prev => !prev);
+    history.push(isLoginView ? "/signup" : "/login")
+    // setIsLoginView(prev => !prev);
   }
 
   const handleInputChange = e => {

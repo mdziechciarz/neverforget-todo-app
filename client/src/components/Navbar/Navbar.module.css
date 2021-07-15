@@ -63,6 +63,29 @@
 .menu>li>.signUpBtn:hover {
   background-color: #351c80;
 }
+.menu>li>.logoutBtn {
+  font-size: 20px;
+  text-decoration: none;
+  color: #000;
+  position: relative;
+  background: none;
+  border: none;
+}
+.menu>li>.logoutBtn::after {
+  transition: 0.3s;
+  display: block;
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 0;
+  bottom: -5px;
+  left: 50%;
+  background-color:#351c80;
+}
+.menu>li>.logoutBtn:hover::after {
+  width: 100%;
+  left: 0;
+}
 
 .mobileOpenIcon {
   display: none;

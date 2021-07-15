@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import * as task from '../../../../actions/tasks';
+import * as category from '../../../../actions/categories';
 import Category from './Category/Category';
 import Task from './Task/Task';
 import TaskModal from './TaskModal/TaskModal';
@@ -11,11 +13,20 @@ import exampleData from '../../../../data/exampleData';
 export const TaskCategoriesContext = createContext();
 
 const TasksPanel = () => {
-  const [taskCategories, setTaskCategories] = useState([]);
+  const dispatch = useDispatch();
+  const tasks = useSelector(state => state.tasks);
+  const categories = useSelector(state => state.categories);
+
+  // const [taskCategories, setTaskCategories] = useState([]);
+
+  // useEffect(() => {
+  //   const { tasks: { categories: taskCategories } } = exampleData;
+  //   setTaskCategories(Object.values(taskCategories));
+  // }, []);
 
   useEffect(() => {
-    const { tasks: { categories: taskCategories } } = exampleData;
-    setTaskCategories(Object.values(taskCategories));
+    dispatch(task.getAll());
+    dispatch(category.getAll());
   }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,26 +35,31 @@ const TasksPanel = () => {
   const handleOpenModal = () => {
     setIsModalOpen(true);
   }
-  const handleEditTask = (task) => {
-    setEditedTask(task);
-    setIsModalOpen(true);
-  }
   const handleCloseModal = () => {
     setEditedTask(null);
     setIsModalOpen(false);
   }
+  const handleCreateTask = () => {
+    setEditedTask(null);
+    handleOpenModal();
+  }
+  const handleEditTask = (taskId) => {
+    const editedTask = tasks.find(task => task._id === taskId)
+    setEditedTask(editedTask);
+    setIsModalOpen(true);
+  }
 
   return (
-    <TaskCategoriesContext.Provider value={taskCategories}>
+    <>
       <div className={style.container}>
         <div className={style.categories}>
-          {taskCategories.map(({ name, openedByDefault, tasks }, key) => (
-            <Category key={key} name={name} openedByDefault={openedByDefault}>
+          {categories.map(category => (
+            <Category key={category._id} name={category.name} openedByDefault={false}>
               {
-                tasks.map((task, key) => (
+                tasks.filter(task => category._id === task.category_id).map((task) => (
                   <Task
-                    key={key}
-                    taskData={task}
+                    key={task._id}
+                    task={task}
                     handleEditTask={handleEditTask}
                   />
                 ))
@@ -52,17 +68,15 @@ const TasksPanel = () => {
           ))}
         </div>
         <div className={style.buttonsContainer}>
-          <button className={style.addTaskButton} onClick={handleOpenModal}><span>+</span>Add Task</button>
+          <button className={style.addTaskButton} onClick={handleCreateTask}><span>+</span>Add Task</button>
         </div>
       </div>
       {isModalOpen && <TaskModal
         editedTask={editedTask}
         handleCloseModal={handleCloseModal}
-        categories={taskCategories}
-        setIsModalOpen={setIsModalOpen}
         setEditedTask={setEditedTask}
       />}
-    </TaskCategoriesContext.Provider>
+    </>
   )
 }
 

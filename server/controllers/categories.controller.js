@@ -8,11 +8,12 @@ export const get = async (req, res, next) => {
   if (!req.user_id) return res.status(401).send();
 
   try {
-    const categories = Category.find({ user_id: req.user_id }, { '__v': 0 });
+    const categories = await Category.find({ user_id: req.user_id }, { '__v': 0 });
 
     return res.status(200).json({ categories });
 
   } catch (err) {
+    console.log(err);
     next(err);
   }
 

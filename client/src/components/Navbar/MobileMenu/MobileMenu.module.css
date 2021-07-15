@@ -55,3 +55,14 @@
 .mobileMenu>ul>li:hover {
   background-color: #351c80;
 }
+.mobileMenu>ul>li>.logoutBtn {
+  font-size: 25px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #f9f9f9;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: none;
+  border: none;
+}

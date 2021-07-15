@@ -7,7 +7,9 @@ import PopupMenu from './PopupMenu/PopupMenu';
 
 import style from './Task.module.scss';
 
-const Task = ({ taskData: { title, category, description, deadline, priority = 0, tracked, habit }, handleEditTask }) => {
+const Task = ({ task, handleEditTask }) => {
+  // handleEditTask = handleEditTask(task._id);
+
   const [isOpen, setIsOpen] = useState(true);
   const [isDone, setIsDone] = useState(false);
   const isTabletOrDesktop = useMediaQuery({
@@ -27,22 +29,22 @@ const Task = ({ taskData: { title, category, description, deadline, priority = 0
         <div className={style.primaryIconContainer} onClick={toggleDone}>
           <PrimaryIcon isDone={isDone} />
         </div>
-        <p className={style.name} onClick={toggleOpen}>{title}</p>
+        <p className={style.name} onClick={toggleOpen}>{task.title}</p>
         {isTabletOrDesktop &&
           <div className={style.deadlineAndCategory}>
-            {deadline && <div className={style.deadline}>Due {new Date(deadline).toLocaleDateString()}</div>}
-            {priority !== 0 && <Priority priority={priority} />}
+            {task.deadline && <div className={style.deadline}>Due {new Date(task.deadline).toLocaleDateString()}</div>}
+            {task.priority !== 0 && <Priority priority={task.priority} />}
           </div>}
         {isTabletOrDesktop ? (
           <PopupMenu handleEditTask={
-            () => handleEditTask({ title, category, description, deadline, priority, tracked, habit })
+            () => handleEditTask(task._id)
           } />
         ) : (
           isOpen ? (
             <div className={style.collapseIcon} onClick={toggleOpen} > <IoIosArrowForward /></div>
           ) : (
             <PopupMenu handleEditTask={
-              () => handleEditTask({ title, category, description, deadline, priority, tracked, habit })
+              () => handleEditTask(task._id)
             } />
           )
         )}
@@ -50,14 +52,14 @@ const Task = ({ taskData: { title, category, description, deadline, priority = 0
       {
         isTabletOrDesktop ? (
           <div className={style.content}>
-            {description && <div className={style.description}>{description}</div>}
+            {task.description && <div className={style.description}>{task.description}</div>}
           </div>
         ) : (
           !isOpen && <div className={style.content}>
-            {description && <div className={style.description}>{description}</div>}
+            {task.description && <div className={style.description}>{task.description}</div>}
             <div className={style.details}>
-              {deadline && <div className={style.deadline}>Due {new Date(deadline).toLocaleDateString()}</div>}
-              {priority !== 0 && <Priority priority={priority} />}
+              {task.deadline && <div className={style.deadline}>Due {new Date(task.deadline).toLocaleDateString()}</div>}
+              {task.priority !== 0 && <Priority priority={task.priority} />}
             </div>
           </div>
         )

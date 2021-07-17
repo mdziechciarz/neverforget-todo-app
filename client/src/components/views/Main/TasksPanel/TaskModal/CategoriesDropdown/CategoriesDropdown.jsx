@@ -1,57 +1,100 @@
-import { useState } from 'react'
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { FaPlus } from 'react-icons/fa'
-import style from './CategoriesDropdown.module.scss';
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { FaPlus } from "react-icons/fa";
+import CategoriesCreationModal from "./CategoriesCreationModal";
+import style from "./CategoriesDropdown.module.scss";
 
-const CategoriesDropdown = ({ title, options, selectedOption, selectOption }) => {
+const CategoriesDropdown = ({ selectedCategoryId, selectCategoryId }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
+  const categories = useSelector((state) => state.categories);
+  const selectedCategory = categories.find(
+    (category) => category._id === selectedCategoryId
+  );
   const handleOpen = () => {
-    setIsOpen(prev => !prev)
-  }
+    setIsOpen((prev) => !prev);
+  };
 
   return (
-    <div className={style.wrapper}>
-      <div className={`${style.container} ${isOpen && style.open}`}>
-        <Head isOpen={isOpen} handleOpen={handleOpen} selectedOption={selectedOption} title={title} />
-        {isOpen && <Content options={options} setOption={selectOption} setIsOpen={setIsOpen} />}
+    <>
+      <div className={style.wrapper}>
+        <div className={`${style.container} ${isOpen && style.open}`}>
+          <Head
+            isOpen={isOpen}
+            handleOpen={handleOpen}
+            selectedCategory={selectedCategory}
+          />
+          {isOpen && (
+            <Content
+              categories={categories}
+              selectCategoryId={selectCategoryId}
+              setIsOpen={setIsOpen}
+              handleCreateCategory={() => setIsCreationModalOpen(true)}
+            />
+          )}
+        </div>
       </div>
-    </div>
-  )
-}
+      {isCreationModalOpen && (
+        <CategoriesCreationModal
+          handleCloseModal={() => setIsCreationModalOpen(false)}
+        />
+      )}
+    </>
+  );
+};
 
-export default CategoriesDropdown
+export default CategoriesDropdown;
 
-const Head = ({ isOpen, handleOpen, selectedOption, title }) => {
-  console.log(selectedOption);
+const Head = ({ isOpen, handleOpen, selectedCategory }) => {
+  // console.log(selectedCategory);
   return (
     <div className={style.head} onClick={handleOpen}>
-      <span className={`${style.title} ${selectedOption && style.selected}`}>
-        {selectedOption?.name || title}
+      <span className={`${style.title} ${selectedCategory && style.selected}`}>
+        {selectedCategory?.name || "Category"}
       </span>
-      <span className={style.arrow}>{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</span>
+      <span className={style.arrow}>
+        {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+      </span>
     </div>
-  )
-}
+  );
+};
 
-const Content = ({ options, setOption, setIsOpen }) => {
-  const handleSelect = (option) => {
-    setOption(option);
+const Content = ({
+  categories,
+  selectCategoryId,
+  setIsOpen,
+  handleCreateCategory,
+}) => {
+  const handleSelect = (category) => {
+    console.log(category);
+    selectCategoryId(category._id);
     setIsOpen(false);
-  }
-
+  };
   return (
     <div className={style.content}>
       <ul className={style.elementsList}>
-        {options.map((option, i) => (
-          <Element key={option._id} name={option.name} onClick={() => handleSelect(option)} />
+        {categories.map((category) => (
+          // <Element key={category._id} name={category.name} onClick={() => handleSelect(category)} />
+          <li
+            key={category._id}
+            className={style.element}
+            onClick={() => handleSelect(category)}
+          >
+            {category.name}
+          </li>
         ))}
       </ul>
-      <button className={style.addCategoryBtn}><i><FaPlus /></i>New category</button>
+      <button className={style.addCategoryBtn} onClick={handleCreateCategory}>
+        <i>
+          <FaPlus />
+        </i>
+        New category
+      </button>
     </div>
-  )
-}
+  );
+};
 
-const Element = ({ name, onClick = () => { } }) => (
-  <li className={style.element} onClick={onClick}>{name}</li>
-)
-
+// const Element = ({ name, onClick = () => { } }) => (
+//   <li className={style.element} onClick={onClick}>{name}</li>
+// )

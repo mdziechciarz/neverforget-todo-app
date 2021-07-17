@@ -4,7 +4,7 @@ import { MdClose } from 'react-icons/md';
 import { IoMdMore } from 'react-icons/io'
 import style from './PopupMenu.module.scss';
 
-const PopupMenu = ({ handleEditTask }) => {
+const PopupMenu = ({ handleEditTask, handleDeleteTask }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = (e) => {
@@ -14,14 +14,14 @@ const PopupMenu = ({ handleEditTask }) => {
   return (
     <div className={style.container}>
       <div className={style.icon} onClick={toggleOpen}><IoMdMore /></div>
-      {isOpen && <Content setIsOpen={setIsOpen} handleEditTask={handleEditTask} />}
+      {isOpen && <Content setIsOpen={setIsOpen} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />}
     </div>
   )
 }
 
 export default PopupMenu
 
-const Content = ({ setIsOpen, handleEditTask }) => {
+const Content = ({ setIsOpen, handleEditTask, handleDeleteTask }) => {
   const ref = outsideClickListenerRef(() => setIsOpen(false));
 
   return (
@@ -32,7 +32,7 @@ const Content = ({ setIsOpen, handleEditTask }) => {
           handleEditTask();
           setIsOpen(false);
         }}>Edit</li>
-        <li className={style.element}>Delete</li>
+        <li className={style.element} onClick={handleDeleteTask}>Delete</li>
       </ul>
     </div>
   )

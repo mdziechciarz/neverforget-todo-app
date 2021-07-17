@@ -12,8 +12,6 @@ export const getAll = () => async (dispatch) => {
     dispatch(logout());
   }
   const { data: { categories } } = await api.get('/categories', { headers: { 'x-access-token': token } })
-  console.log(categories);
-
   dispatch({
     type: CATEGORIES.GET_ALL,
     payload: categories

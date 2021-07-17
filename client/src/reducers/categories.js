@@ -3,7 +3,7 @@ import { CATEGORIES, LOGOUT } from "../actions/types"
 const categoriesReducer = (state = [], action) => {
   switch (action.type) {
     case CATEGORIES.GET_ALL:
-      return action.payload;
+      return [...action.payload];
     case LOGOUT:
       return [];
     default:

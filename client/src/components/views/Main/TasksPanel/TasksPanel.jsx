@@ -10,24 +10,18 @@ import style from './TasksPanel.module.scss';
 
 import exampleData from '../../../../data/exampleData';
 
-export const TaskCategoriesContext = createContext();
-
 const TasksPanel = () => {
   const dispatch = useDispatch();
-  const tasks = useSelector(state => state.tasks);
-  const categories = useSelector(state => state.categories);
-
-  // const [taskCategories, setTaskCategories] = useState([]);
-
-  // useEffect(() => {
-  //   const { tasks: { categories: taskCategories } } = exampleData;
-  //   setTaskCategories(Object.values(taskCategories));
-  // }, []);
 
   useEffect(() => {
     dispatch(task.getAll());
     dispatch(category.getAll());
   }, []);
+
+  const tasks = useSelector(state => state.tasks);
+  const categories = useSelector(state => state.categories);
+  console.log(categories)
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedTask, setEditedTask] = useState(null);

@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
+import { remove } from '../../../../../actions/tasks';
 import { IoIosArrowForward } from 'react-icons/io';
 
 import PrimaryIcon from './PrimaryIcon';
@@ -8,8 +10,7 @@ import PopupMenu from './PopupMenu/PopupMenu';
 import style from './Task.module.scss';
 
 const Task = ({ task, handleEditTask }) => {
-  // handleEditTask = handleEditTask(task._id);
-
+  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(true);
   const [isDone, setIsDone] = useState(false);
   const isTabletOrDesktop = useMediaQuery({
@@ -21,6 +22,9 @@ const Task = ({ task, handleEditTask }) => {
   }
   const toggleDone = () => {
     setIsDone(prev => !prev);
+  }
+  const handleDeleteTask = (taskId) => {
+    dispatch(remove(taskId));
   }
 
   return (
@@ -36,9 +40,10 @@ const Task = ({ task, handleEditTask }) => {
             {task.priority !== 0 && <Priority priority={task.priority} />}
           </div>}
         {isTabletOrDesktop ? (
-          <PopupMenu handleEditTask={
-            () => handleEditTask(task._id)
-          } />
+          <PopupMenu
+            handleEditTask={() => handleEditTask(task._id)}
+            handleDeleteTask={() => handleDeleteTask(task._id)}
+          />
         ) : (
           isOpen ? (
             <div className={style.collapseIcon} onClick={toggleOpen} > <IoIosArrowForward /></div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { create, update } from '../../../../../actions/tasks';
 import { TaskCategoriesContext } from '../TasksPanel';
 import { MdClose } from 'react-icons/md';
 import { FaCheck } from 'react-icons/fa';
@@ -33,13 +34,11 @@ const TaskModal = ({ editedTask, handleCloseModal }) => {
     }
   }, []);
 
-  // const taskCategories = useContext(TaskCategoriesContext);
   const categories = useSelector(state => state.categories);
-  // const categories = taskCategories.map(category => category.name);
 
   const [taskData, setTaskData] = useState(editedTask || {
     title: '',
-    category: null,
+    category_id: null,
     description: '',
     deadline: null,
     priority: 0,
@@ -51,11 +50,22 @@ const TaskModal = ({ editedTask, handleCloseModal }) => {
       [e.target.name]: e.target.value
     }))
   }
-  const selectCategory = (category) => {
+  const selectCategoryId = (categoryId) => {
     setTaskData(prev => ({
       ...prev,
-      category
+      category_id: categoryId
     }))
+  }
+  const handleSubmit = () => {
+    if (editedTask) {
+      // validate...
+      dispatch(update(taskData));
+      handleCloseModal();
+    } else {
+      // validate...
+      dispatch(create(taskData));
+      handleCloseModal();
+    }
   }
 
   return (
@@ -69,7 +79,7 @@ const TaskModal = ({ editedTask, handleCloseModal }) => {
           <div className={style.modalContent}>
             <div className={style.inputs}>
               <input className={style.title} type="text" placeholder="Title" name="title" value={taskData.title} onChange={handleChange} />
-              <CategoriesDropdown title="Category" options={categories} selectedOption={taskData.category} selectOption={selectCategory} />
+              <CategoriesDropdown title="Category" selectedCategoryId={taskData.category_id} selectCategoryId={selectCategoryId} />
               <textarea className={style.description} type="text" name="description" placeholder="Description" value={taskData.description} onChange={handleChange} />
             </div>
             <div className={style.customization}>
@@ -79,7 +89,7 @@ const TaskModal = ({ editedTask, handleCloseModal }) => {
               <HabitInput />
             </div>
           </div>
-          <button className={style.confirmBtn}><i><FaCheck /></i>{editedTask ? 'Save' : 'Create'}</button>
+          <button className={style.confirmBtn} onClick={handleSubmit}><i><FaCheck /></i>{editedTask ? 'Save' : 'Create'}</button>
         </div>
       </div>
     </Modal>
